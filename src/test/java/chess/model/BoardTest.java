@@ -1,10 +1,8 @@
-package test.java.chess;
+package test.java.chess.model;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
-
-import main.java.chess.*;
+import main.java.chess.model.Board;
 
 class BoardTest {
 
