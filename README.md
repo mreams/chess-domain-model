@@ -19,9 +19,10 @@ Logic is divided up between the pieces and the board. Each piece is in charge of
 The board is modelled as a 2-D array. X and Y start at the bottom left corner, making board\[0\]\[0-7\] the left edge of the board and board\[7\]\[0-7\] the right edge of the board
 
 Different exceptions are thrown for various types of invalid moves:
-MoveOutOfBounds - thrown when the move would move the piece off the board 
-InvalidMove - thrown when the move is not valid for the piece type, for example trying to move a bishop sideways
-InvalidCapture - thrown when the move attempted to capture a piece of the same colour 
+- NoPieceFound - thrown when there is no piece found at the start coordinates
+- MoveOutOfBounds - thrown when the move would move the piece off the board 
+- InvalidMove - thrown when the move is not valid for the piece type, for example trying to move a bishop sideways
+- InvalidCapture - thrown when the move attempted to capture a piece of the same colour 
 
 ## Testing notes
 
