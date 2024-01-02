@@ -1,4 +1,4 @@
-package main.java.chess.enums;
+package chess.enums;
 
 public enum Colour {
 	BLACK,

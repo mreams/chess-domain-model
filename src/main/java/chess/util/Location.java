@@ -1,4 +1,4 @@
-package main.java.chess.util;
+package chess.util;
 
 public class Location {
 	private int x, y;
@@ -14,6 +14,13 @@ public class Location {
 	
 	public int getY() {
 		return this.y;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		Location other = (Location) o;
+		
+		return this.x == other.x && this.y == other.y;
 	}
 
 }

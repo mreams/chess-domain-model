@@ -1,4 +1,4 @@
-package main.java.chess.exceptions;
+package chess.exceptions;
 
 public class NoPieceFoundException extends RuntimeException {
 	private static final long serialVersionUID = -6733534163401000528L;

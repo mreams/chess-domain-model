@@ -1,6 +1,7 @@
-package main.java.chess.exceptions;
+package chess.exceptions;
 
 public class TestException extends Exception {
+	private static final long serialVersionUID = -3864314840077843920L;
 
 	public TestException() {
 		// TODO Auto-generated constructor stub

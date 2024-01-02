@@ -1,9 +1,12 @@
-package main.java.chess.model;
+package chess.model;
 
-import main.java.chess.enums.Colour;
-import main.java.chess.enums.PieceType;
-import main.java.chess.enums.Status;
-import main.java.chess.util.Location;
+import java.util.ArrayList;
+import java.util.List;
+
+import chess.enums.Colour;
+import chess.enums.PieceType;
+import chess.enums.Status;
+import chess.util.Location;
 
 public class Pawn extends Piece {
 	boolean firstMove;
@@ -62,6 +65,45 @@ public class Pawn extends Piece {
 		} 
 		
 		return false;
+	}
+
+	@Override
+	public List<Location> getMovePath(Location origin, Location destination) {
+		int xDistance = destination.getX() - origin.getX();
+		int yDistance = Math.abs(destination.getY() - origin.getY());
+		
+		List<Location> movePath = new ArrayList<Location>();
+		
+		//if both distances are 1, the pawn must be moving diagonally to capture a piece
+		if (xDistance == 1 && yDistance == 1){
+			movePath.add(destination);
+			return movePath;
+		}
+		
+		if (xDistance == 1 && yDistance == 0) {
+			movePath.add(destination);
+			return movePath;
+		}
+		
+		if (xDistance == 3 && yDistance == 1) {
+			movePath.add(new Location(origin.getX() + 1, origin.getY()));
+			movePath.add(new Location(origin.getX() + 2, origin.getY()));
+			movePath.add(destination);
+			return movePath;
+		}
+		if (xDistance == 2 && yDistance == 1) {
+			movePath.add(new Location(origin.getX() + 1, origin.getY()));
+			movePath.add(destination);
+			return movePath;
+		} else if (xDistance == 2 && yDistance == 0) {
+			movePath.add(new Location(origin.getX() + 1, origin.getY()));
+			movePath.add(new Location(origin.getX() + 2, origin.getY()));
+		} else if (xDistance == 1 && yDistance == 0){
+			movePath.add(new Location(origin.getX() + 1, origin.getY()));
+			movePath.add(destination);
+		} 
+		
+		return movePath;
 	}
 
 }

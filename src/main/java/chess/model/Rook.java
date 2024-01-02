@@ -1,9 +1,11 @@
-package main.java.chess.model;
+package chess.model;
 
-import main.java.chess.enums.Colour;
-import main.java.chess.enums.PieceType;
-import main.java.chess.enums.Status;
-import main.java.chess.util.Location;
+import java.util.List;
+
+import chess.enums.Colour;
+import chess.enums.PieceType;
+import chess.enums.Status;
+import chess.util.Location;
 
 public class Rook extends Piece {
 	
@@ -17,5 +19,11 @@ public class Rook extends Piece {
 	public boolean isMoveValid(Location origin, Location destination) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<Location> getMovePath(Location origin, Location destination) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

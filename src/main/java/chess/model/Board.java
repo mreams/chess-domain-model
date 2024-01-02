@@ -1,4 +1,4 @@
-package main.java.chess.model;
+package chess.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,10 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import main.java.chess.enums.Colour;
-import main.java.chess.exceptions.NoPieceFoundException;
+import chess.enums.Colour;
+import chess.exceptions.InvalidMoveException;
+import chess.exceptions.NoPieceFoundException;
+
 
 /**
  * Model for a chess board. Tracks the state of the pieces and their locations. 
@@ -65,11 +67,17 @@ public class Board {
 	}
 
 	public boolean move(int fromX, int fromY, int toX, int toY) {
+		//is the move at least one square?
+		if (fromX == toX && fromY == toY) {
+			throw new InvalidMoveException("Destination must be at least 1 square away from origin. X: " + fromX + 
+					" Y: " + fromY);
+		}
+		
 		//is there a piece at the origin?
 		Piece piece = board[fromX][fromY];
 		
 		if (piece == null) {
-			logger.error("No piece found at x: " + fromX + " y: " + fromY);
+			//logger.error("No piece found at x: " + fromX + " y: " + fromY);
 			throw new NoPieceFoundException("No piece found at x: " + fromX + " y: " + fromY);
 		}
 		

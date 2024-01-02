@@ -1,9 +1,11 @@
-package main.java.chess.model;
+package chess.model;
 
-import main.java.chess.enums.Colour;
-import main.java.chess.enums.PieceType;
-import main.java.chess.enums.Status;
-import main.java.chess.util.Location;
+import java.util.List;
+
+import chess.enums.Colour;
+import chess.enums.PieceType;
+import chess.enums.Status;
+import chess.util.Location;
 
 /**
  * Inteface for common elements of a chess piece. The implementations of each piece will handle the details 
@@ -51,5 +53,13 @@ public abstract class Piece {
 	public boolean move(Location origin, Location destination) {
 		return isMoveValid(origin, destination);
 	}
+	
+	/**
+	 * Returns a list of the Locations the piece will move through on its way from origin to destination
+	 * @param origin start location to move from
+	 * @param destination location to move to
+	 * @return List<Location> of all the locations the piece will move through on the way to the destination, not including the origin
+	 */
+	public abstract List<Location> getMovePath(Location origin, Location destination);
 	
 }
