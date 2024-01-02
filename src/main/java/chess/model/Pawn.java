@@ -32,7 +32,7 @@ public class Pawn extends Piece {
 		//if a pawn is white, it can only move to higher X values
 		if (this.colour == Colour.WHITE && destination.getX() < origin.getX()) {
 			return false;
-		} else if (this.colour == Colour.BLACK && destination.getX() < origin.getX()) {
+		} else if (this.colour == Colour.BLACK && destination.getX() > origin.getX()) {
 			return false;
 		}
 		
@@ -43,9 +43,10 @@ public class Pawn extends Piece {
 		
 		//pawns can move 2 spaces forward and then capture on the diagonal only if it's the first move
 		if (this.firstMove) {
-			if (xDistance <= 3 && yDistance == 1) {
+			//if pawn is moving 3 spaces forward it must be attempting to capture another piece
+			if (xDistance == 3 && yDistance == 1) {
 				return true;
-			} else if (xDistance <= 2 && yDistance == 0) {
+			} else if (xDistance <= 2 && yDistance < 2) {
 				return true;
 			}
 		} else {

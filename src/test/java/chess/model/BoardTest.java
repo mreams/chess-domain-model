@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import chess.enums.Colour;
 import chess.exceptions.InvalidMoveException;
 import chess.exceptions.NoPieceFoundException;
 import chess.util.Location;
@@ -102,7 +103,8 @@ public class BoardTest {
 		//that gets it in the way of the other white pawn trying to move 2 spaces on its first move
 		Board board = new Board();
 		
-		for (int i = Board.BOARD_WIDTH - 2; i > 1; i--) {
+		//stop looping at i == 2 to put the black pawn right in front of the row of white pawns
+		for (int i = Board.BOARD_WIDTH - 2; i > 2; i--) {
 			Location origin = new Location(i, 3);
 			Location destination = new Location(i - 1, 3);
 			board.move(origin, destination);
@@ -113,6 +115,10 @@ public class BoardTest {
 		Location destination = new Location(2,3);
 		board.move(origin, destination);
 		
+		List<Piece> captured = board.getCapturedPieces();
+		assertTrue(captured.size() == 1, "1 piece captured");
+		assertTrue(captured.get(0).getColour() == Colour.BLACK, "black pawn should be captured");
+		
 		//now we finally have a piece in the way at 2,3!
 		Location origin2 = new Location(1,3);
 		Location destination2 = new Location(3,3);
@@ -121,7 +127,7 @@ public class BoardTest {
 			board.move(origin2, destination2);
 		});
 		
-		assertTrue(thrown.getMessage().startsWith("Invalid move, blocked by piece"), "Invalid moved, blocked by another piece");
+		assertTrue(thrown.getMessage().startsWith("Invalid move, obstructed by piece"), "Invalid move, obstructed by piece");
 	}
 
 	//TODO: test trying to move a pawn diagonally without trying to capture another piece
