@@ -76,10 +76,25 @@ public class PawnTest {
 	@Test
 	public void testMovePathOneForwardCapture() {
 		Piece piece = new Pawn(Colour.WHITE);
+		Location origin = new Location(1, 1);
 		Location destination = new Location(3,0);
-		List<Location> movePath = piece.getMovePath(new Location(1, 1), destination);
+		List<Location> movePath = piece.getMovePath(origin, destination);
 		
 		Location first = new Location(2,1);
+		
+		assertTrue(movePath.size() == 2, "movePath should be 2 locations long, actually " + movePath.size());
+		assertTrue(movePath.get(0).equals(first), "first location in move path should be 2,1");
+		assertTrue(movePath.get(1).equals(destination), "second location should be 2,0");
+	}
+	
+	@Test
+	public void testMovePathOneForwardCaptureLeft() {
+		Piece piece = new Pawn(Colour.WHITE);
+		Location origin = new Location(1, 0);
+		Location destination = new Location(3,1);
+		List<Location> movePath = piece.getMovePath(origin, destination);
+		
+		Location first = new Location(2,0);
 		
 		assertTrue(movePath.size() == 2, "movePath should be 2 locations long, actually " + movePath.size());
 		assertTrue(movePath.get(0).equals(first), "first location in move path should be 2,1");
