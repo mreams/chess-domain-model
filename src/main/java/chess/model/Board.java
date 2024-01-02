@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import chess.enums.Colour;
 import chess.exceptions.InvalidMoveException;
 import chess.exceptions.NoPieceFoundException;
+import chess.util.Location;
 
 
 /**
@@ -17,14 +18,12 @@ import chess.exceptions.NoPieceFoundException;
  */
 public class Board {
 	private static final Logger logger = LogManager.getLogger();
-	 
 	private Piece[][] board;
 	
-	//might not need these two
-	private List<Piece> uncaptured;
+	//future improvement: return stats on how many pieces were captured in the game
 	private List<Piece> captured;
 	
-	private final int BOARD_WIDTH = 8;
+	public final static int BOARD_WIDTH = 8;
 	
 	public Board() {
 		//initialize 2d array for board
@@ -32,7 +31,6 @@ public class Board {
 		//set their locations on the board
 		
 		board = new Piece[BOARD_WIDTH][BOARD_WIDTH];
-		uncaptured = new ArrayList<Piece>();
 		captured = new ArrayList<Piece>();
 		
 		setTheBoard();
@@ -66,29 +64,66 @@ public class Board {
 		board[BOARD_WIDTH - 1][2] = new Rook(Colour.BLACK);
 	}
 
-	public boolean move(int fromX, int fromY, int toX, int toY) {
+	public boolean move(Location origin, Location destination) {
+		int xDistance = destination.getX() - origin.getX();
+		int yDistance = Math.abs(destination.getY() - origin.getY());
+		
+		//is the destination on the board?
+		if (destination.getX() < 0 || destination.getX() >= BOARD_WIDTH
+				|| destination.getY() < 0 || destination.getY() >= BOARD_WIDTH) {
+			throw new InvalidMoveException("Destination must be on the board");
+		}
+		
 		//is the move at least one square?
-		if (fromX == toX && fromY == toY) {
-			throw new InvalidMoveException("Destination must be at least 1 square away from origin. X: " + fromX + 
-					" Y: " + fromY);
+		if (xDistance == 0 && yDistance == 0) {
+			throw new InvalidMoveException("Destination must be at least 1 square away from origin. origin: " +
+					origin + " dest: " + destination);
 		}
 		
 		//is there a piece at the origin?
-		Piece piece = board[fromX][fromY];
+		Piece piece = board[origin.getX()][origin.getY()];
 		
 		if (piece == null) {
 			//logger.error("No piece found at x: " + fromX + " y: " + fromY);
-			throw new NoPieceFoundException("No piece found at x: " + fromX + " y: " + fromY);
+			throw new NoPieceFoundException("No piece found at x: " + origin + " y: " + destination);
 		}
 		
 		//can it move to destination?
+		if (!piece.isMoveValid(origin, destination)) {
+			throw new InvalidMoveException("Invalid move for piece: " + piece.getType() + " from origin: " + origin + " to destination: " + destination);
+		}
 		
 		//is there anything in the way?
+		List<Location> movePath = piece.getMovePath(origin, destination);
+		//last location in the move path is always the destination, if there's anything at the destination
+		//we must be trying to capture it, so it doesn't count as a piece in the way
+		for (int i = 0; i < movePath.size() - 1; i++) {
+			Location current = movePath.get(i);
+			Piece obstruction = board[current.getX()][current.getY()];
+			if (obstruction != null) {
+				throw new InvalidMoveException("Invalid move, obstructed by piece: " + obstruction.getType() + " at: " + current);
+			}
+		}
 		
 		//is there a piece to capture at the destination?
+		Piece toCapture = board[destination.getX()][destination.getY()];
 		
-		//if there's a piece to capture, is it the other colour?
+		if (toCapture != null) {
+			if (piece.getColour() == toCapture.getColour()) {
+				throw new InvalidMoveException("Attempted to capture piece of same colour");
+			}
+			
+			toCapture.setCaptured();
+			this.captured.add(toCapture);
+		}
+		
+		board[origin.getX()][origin.getY()] = null;
+		board[destination.getX()][destination.getY()] = piece;
 		
 		return true;
+	}
+
+	public List<Piece> getCapturedPieces() {
+		return this.captured;
 	}
 }

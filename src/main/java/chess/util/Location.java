@@ -19,8 +19,12 @@ public class Location {
 	@Override
 	public boolean equals(Object o) {
 		Location other = (Location) o;
-		
 		return this.x == other.x && this.y == other.y;
+	}
+	
+	@Override
+	public String toString() {
+		return "X: " + this.x + " Y: " + this.y;
 	}
 
 }
