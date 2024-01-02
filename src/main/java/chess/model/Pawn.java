@@ -70,39 +70,15 @@ public class Pawn extends Piece {
 	@Override
 	public List<Location> getMovePath(Location origin, Location destination) {
 		int xDistance = destination.getX() - origin.getX();
-		int yDistance = Math.abs(destination.getY() - origin.getY());
-		
 		List<Location> movePath = new ArrayList<Location>();
 		
-		//if both distances are 1, the pawn must be moving diagonally to capture a piece
-		if (xDistance == 1 && yDistance == 1){
-			movePath.add(destination);
-			return movePath;
+		if (xDistance > 1) {
+			for (int i = 1; i < xDistance; i++) {
+				movePath.add(new Location(origin.getX() + i, origin.getY()));
+			}
 		}
 		
-		if (xDistance == 1 && yDistance == 0) {
-			movePath.add(destination);
-			return movePath;
-		}
-		
-		if (xDistance == 3 && yDistance == 1) {
-			movePath.add(new Location(origin.getX() + 1, origin.getY()));
-			movePath.add(new Location(origin.getX() + 2, origin.getY()));
-			movePath.add(destination);
-			return movePath;
-		}
-		if (xDistance == 2 && yDistance == 1) {
-			movePath.add(new Location(origin.getX() + 1, origin.getY()));
-			movePath.add(destination);
-			return movePath;
-		} else if (xDistance == 2 && yDistance == 0) {
-			movePath.add(new Location(origin.getX() + 1, origin.getY()));
-			movePath.add(new Location(origin.getX() + 2, origin.getY()));
-		} else if (xDistance == 1 && yDistance == 0){
-			movePath.add(new Location(origin.getX() + 1, origin.getY()));
-			movePath.add(destination);
-		} 
-		
+		movePath.add(destination);
 		return movePath;
 	}
 
