@@ -11,6 +11,8 @@ import chess.enums.Colour;
 import chess.util.Location;
 
 public class PawnTest {
+	
+	//White pawn movement tests - these will be repeated for black pawns because they move in the opposite direction
 
 	@Test
 	public void testMoveOneForward() {
@@ -63,6 +65,24 @@ public class PawnTest {
 		assertTrue(isValid, "pawns can move diagonally to the right to capture");
 	}
 	
+	//black pawn movement tests
+	@Test
+	public void testMoveOneForwardBlack() {
+		Piece piece = new Pawn(Colour.BLACK);
+		boolean isValid = piece.isMoveValid(new Location(6, 0), new Location(5, 0));
+		assertTrue(isValid, "pawns can move forward one space");
+	}
+	
+	@Test
+	public void testMoveTooFarNoCaptureBlack() {
+		Piece piece = new Pawn(Colour.BLACK);
+		boolean isValid = piece.isMoveValid(new Location(6, 0), new Location(3, 0));
+		assertFalse(isValid, "pawns can't move forward 3 spaces without trying to capture");
+	}
+	
+	
+	//white path move path tests
+	
 	@Test
 	public void testMovePathOneForward() {
 		Piece piece = new Pawn(Colour.WHITE);
@@ -114,5 +134,6 @@ public class PawnTest {
 		assertTrue(movePath.get(2).equals(destination), "third location in move path should be 4,1");
 	}
 	
+	//TODO: add new versions of the move tests for black pawns - they move in the opposite direction from white pawns and I probably missed some edge cases there
 	
 }

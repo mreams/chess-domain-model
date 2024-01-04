@@ -17,6 +17,8 @@ import chess.util.Location;
  * on the board.
  */
 public class Board {
+	@SuppressWarnings("unused")
+	//this will be used eventually, I swear
 	private static final Logger logger = LogManager.getLogger();
 	private Piece[][] board;
 	
@@ -25,11 +27,7 @@ public class Board {
 	
 	public final static int BOARD_WIDTH = 8;
 	
-	public Board() {
-		//initialize 2d array for board
-		//create the lists of pieces - uncaptured and captured
-		//set their locations on the board
-		
+	public Board() {		
 		board = new Piece[BOARD_WIDTH][BOARD_WIDTH];
 		captured = new ArrayList<Piece>();
 		
