@@ -15,35 +15,35 @@ public class PawnTest {
 	//White pawn movement tests - these will be repeated for black pawns because they move in the opposite direction
 
 	@Test
-	public void testMoveOneForward() {
+	public void testMoveOneForwardWhite() {
 		Piece piece = new Pawn(Colour.WHITE);
 		boolean isValid = piece.isMoveValid(new Location(1, 0), new Location(2, 0));
 		assertTrue(isValid, "pawns can move forward one space");
 	}
 	
 	@Test
-	public void testMoveTooFarNoCapture() {
+	public void testMoveTooFarNoCaptureWhite() {
 		Piece piece = new Pawn(Colour.WHITE);
 		boolean isValid = piece.isMoveValid(new Location(1, 0), new Location(4, 0));
 		assertFalse(isValid, "pawns can't move forward 3 spaces without trying to capture");
 	}
 	
 	@Test
-	public void testMoveMaximumCapture() {
+	public void testMoveMaximumCaptureWhite() {
 		Piece piece = new Pawn(Colour.WHITE);
 		boolean isValid = piece.isMoveValid(new Location(1, 0), new Location(4, 1));
 		assertTrue(isValid, "pawns can move forward 3 spaces to capture");
 	}
 	
 	@Test
-	public void testMoveBackward() {
+	public void testMoveBackwardWhite() {
 		Piece piece = new Pawn(Colour.WHITE);
 		boolean isValid = piece.isMoveValid(new Location(3, 0), new Location(2, 0));
 		assertFalse(isValid, "pawns can't move backward");
 	}
 	
 	@Test
-	public void testMoveTwoSpacesAfterFirstMove() {
+	public void testMoveTwoSpacesAfterFirstMoveWhite() {
 		Piece piece = new Pawn(Colour.WHITE);
 		Location firstOrigin = new Location(1, 0);
 		Location firstDestination = new Location(3, 0);
@@ -59,7 +59,7 @@ public class PawnTest {
 	}
 	
 	@Test
-	public void testCaptureRightDiagonal() {
+	public void testCaptureRightDiagonalWhite() {
 		Piece piece = new Pawn(Colour.WHITE);
 		boolean isValid = piece.isMoveValid(new Location(1, 1), new Location(2, 0));
 		assertTrue(isValid, "pawns can move diagonally to the right to capture");
@@ -78,6 +78,36 @@ public class PawnTest {
 		Piece piece = new Pawn(Colour.BLACK);
 		boolean isValid = piece.isMoveValid(new Location(6, 0), new Location(3, 0));
 		assertFalse(isValid, "pawns can't move forward 3 spaces without trying to capture");
+	}
+	
+	@Test
+	public void testMoveMaximumCaptureBlack() {
+		Piece piece = new Pawn(Colour.WHITE);
+		boolean isValid = piece.isMoveValid(new Location(1, 0), new Location(4, 1));
+		assertTrue(isValid, "pawns can move forward 3 spaces to capture");
+	}
+	
+	@Test
+	public void testMoveBackwardBlack() {
+		Piece piece = new Pawn(Colour.WHITE);
+		boolean isValid = piece.isMoveValid(new Location(3, 0), new Location(2, 0));
+		assertFalse(isValid, "pawns can't move backward");
+	}
+	
+	@Test
+	public void testMoveTwoSpacesAfterFirstMoveBlack() {
+		Piece piece = new Pawn(Colour.WHITE);
+		Location firstOrigin = new Location(1, 0);
+		Location firstDestination = new Location(3, 0);
+		boolean firstMoveValid = piece.isMoveValid(firstOrigin, firstDestination);
+		assertTrue(firstMoveValid, "pawns can move forward two spaces on their first move");
+		
+		piece.move(firstOrigin, firstDestination);
+		
+		Location secondOrigin = firstDestination;
+		Location secondDestination = new Location(5,0);
+		boolean secondMoveValid = piece.isMoveValid(secondOrigin, secondDestination);
+		assertFalse(secondMoveValid, "pawns can only move 2 spaces on the first move");
 	}
 	
 	
@@ -134,6 +164,6 @@ public class PawnTest {
 		assertTrue(movePath.get(2).equals(destination), "third location in move path should be 4,1");
 	}
 	
-	//TODO: add new versions of the move tests for black pawns - they move in the opposite direction from white pawns and I probably missed some edge cases there
+
 	
 }

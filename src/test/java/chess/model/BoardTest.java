@@ -131,5 +131,7 @@ public class BoardTest {
 	}
 
 	//TODO: test trying to move a pawn diagonally without trying to capture another piece
+	//TODO: add tests for black pawn moves
+	//TODO: edge case tests: capture that moves capturing piece to top, bottom, left, right edges of board - will require pieces to capture at edges
 
 }

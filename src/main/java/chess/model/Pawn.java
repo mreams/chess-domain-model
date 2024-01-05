@@ -17,6 +17,8 @@ public class Pawn extends Piece {
 		super.status = Status.UNCAPTURED;
 		this.firstMove = true;
 	}
+	
+	//TODO: movement methods don't handle pawn promotion or en passant captures
 
 	@Override
 	public boolean isMoveValid(Location origin, Location destination) {

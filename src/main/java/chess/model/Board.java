@@ -20,6 +20,7 @@ public class Board {
 	@SuppressWarnings("unused")
 	//this will be used eventually, I swear
 	private static final Logger logger = LogManager.getLogger();
+	//TODO: should there be a method to get board layout? would be useful for eventual UI and would make testing easier
 	private Piece[][] board;
 	
 	//future improvement: return stats on how many pieces were captured in the game
@@ -92,6 +93,7 @@ public class Board {
 		}
 		
 		//is there anything in the way?
+		//TODO: this won't correctly for knights
 		List<Location> movePath = piece.getMovePath(origin, destination);
 		//last location in the move path is always the destination, if there's anything at the destination
 		//we must be trying to capture it, so it doesn't count as a piece in the way
