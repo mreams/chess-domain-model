@@ -17,7 +17,13 @@ public class Bishop extends Piece {
 
 	@Override
 	public boolean isMoveValid(Location origin, Location destination) {
-		// TODO Auto-generated method stub
+		int xDistance = Math.abs(destination.getX() - origin.getX());
+		int yDistance = Math.abs(destination.getY() - origin.getY());
+		
+		if (xDistance == yDistance) {
+			return true;
+		}
+		
 		return false;
 	}
 
