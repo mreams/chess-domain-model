@@ -23,7 +23,6 @@ public class Pawn extends Piece {
 	@Override
 	public boolean isMoveValid(Location origin, Location destination) {
 		int xDistance = Math.abs(destination.getX() - origin.getX());
-		//pawns can move diagonally right or left to capture, so we only care about the absolute distance
 		int yDistance = Math.abs(destination.getY() - origin.getY());
 		
 		//pawns can never move more than 3 spaces forward even if it's their first move and they're capturing a piece
@@ -42,6 +41,8 @@ public class Pawn extends Piece {
 		if (yDistance > 1) {
 			return false;
 		}
+		
+		//ARGH this is wrong, how did I forget how pawns work? https://en.wikipedia.org/wiki/Pawn_(chess)
 		
 		//pawns can move 2 spaces forward and then capture on the diagonal only if it's the first move
 		if (this.firstMove) {
