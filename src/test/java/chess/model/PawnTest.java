@@ -29,13 +29,6 @@ public class PawnTest {
 	}
 	
 	@Test
-	public void testMoveMaximumCaptureWhite() {
-		Piece piece = new Pawn(Colour.WHITE);
-		boolean isValid = piece.isMoveValid(new Location(1, 0), new Location(4, 1));
-		assertTrue(isValid, "pawns can move forward 3 spaces to capture");
-	}
-	
-	@Test
 	public void testMoveBackwardWhite() {
 		Piece piece = new Pawn(Colour.WHITE);
 		boolean isValid = piece.isMoveValid(new Location(3, 0), new Location(2, 0));
@@ -78,13 +71,6 @@ public class PawnTest {
 		Piece piece = new Pawn(Colour.BLACK);
 		boolean isValid = piece.isMoveValid(new Location(6, 0), new Location(3, 0));
 		assertFalse(isValid, "pawns can't move forward 3 spaces without trying to capture");
-	}
-	
-	@Test
-	public void testMoveMaximumCaptureBlack() {
-		Piece piece = new Pawn(Colour.WHITE);
-		boolean isValid = piece.isMoveValid(new Location(1, 0), new Location(4, 1));
-		assertTrue(isValid, "pawns can move forward 3 spaces to capture");
 	}
 	
 	@Test

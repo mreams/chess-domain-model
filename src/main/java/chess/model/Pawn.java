@@ -19,16 +19,12 @@ public class Pawn extends Piece {
 	}
 	
 	//TODO: movement methods don't handle pawn promotion or en passant captures
+	//TODO: FFS pawns can move forward or they can capture, never both at once!
 
 	@Override
 	public boolean isMoveValid(Location origin, Location destination) {
 		int xDistance = Math.abs(destination.getX() - origin.getX());
 		int yDistance = Math.abs(destination.getY() - origin.getY());
-		
-		//pawns can never move more than 3 spaces forward even if it's their first move and they're capturing a piece
-		if (xDistance > 3) {
-			return false;
-		}
 		
 		//if a pawn is white, it can only move to higher X values
 		if (this.colour == Colour.WHITE && destination.getX() < origin.getX()) {
@@ -37,27 +33,15 @@ public class Pawn extends Piece {
 			return false;
 		}
 		
-		//pawns can never move more than one space up or down even if they're capturing another piece 
-		if (yDistance > 1) {
-			return false;
-		}
-		
-		//ARGH this is wrong, how did I forget how pawns work? https://en.wikipedia.org/wiki/Pawn_(chess)
-		
-		//pawns can move 2 spaces forward and then capture on the diagonal only if it's the first move
+		//pawns can move 2 spaces forward 
 		if (this.firstMove) {
-			//if pawn is moving 3 spaces forward it must be attempting to capture another piece
-			if (xDistance == 3 && yDistance == 1) {
+			if (xDistance <= 2 && yDistance == 0) {
 				return true;
-			} else if (xDistance <= 2 && yDistance < 2) {
-				return true;
-			}
-		} else {
-			//if it's not the first move then the pawn can only move a maximum of 2 spaces forward including the
-			//capture
-			if (xDistance == 2 && yDistance == 1) {
-				return true;
-			} else if (xDistance == 1 && yDistance == 0) {
+			} 
+		} 
+		
+		if (xDistance == 1) {
+			if (yDistance <= 1) {
 				return true;
 			}
 		}
